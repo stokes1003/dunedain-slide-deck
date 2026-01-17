@@ -57,7 +57,6 @@ app/
 │   ├── SlideNavigation.tsx   # Previous/Next buttons
 │   ├── ErrorDisplay.tsx      # Error message display
 │   ├── Logo.tsx              # Reusable logo component
-│   └── Header.tsx            # (Unused, kept for reference)
 ├── hooks/
 │   ├── useSlideDeck.ts       # Slide deck state management
 │   ├── useSlideGeneration.ts # API call logic
