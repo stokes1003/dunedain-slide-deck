@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Dunedain - AI Slide Deck Builder",
+  title: "Dunedain",
   description:
     "Accelerate presentation creation with AI-powered slide deck generation. Built for mission-critical operations.",
 };
