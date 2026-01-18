@@ -24,6 +24,7 @@ export default function Home() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [originalPrompt, setOriginalPrompt] = useState<string | null>(null);
 
   const { history, addToHistory } = usePromptHistory();
 
@@ -35,14 +36,22 @@ export default function Home() {
     setError,
     setCurrentSlideIndex,
     onSuccess: (prompt, deckTitle) => {
+      setOriginalPrompt(prompt);
       addToHistory(prompt, deckTitle);
     },
   });
+
+  const handleRegenerate = () => {
+    if (originalPrompt) {
+      handleGenerate(originalPrompt);
+    }
+  };
 
   const handleNewDeck = () => {
     setSlides(null);
     setCurrentSlideIndex(0);
     setError(null);
+    setOriginalPrompt(null);
   };
 
   const handleHistoryItemClick = (prompt: string) => {
@@ -95,6 +104,9 @@ export default function Home() {
             onGenerate={handleGenerate}
             isLoading={isLoading}
             onErrorClear={() => setError(null)}
+            onRegenerate={handleRegenerate}
+            isRegenerating={isLoading}
+            slides={slides || { deckTitle: "", slides: [] }}
           />
         </div>
       </div>
