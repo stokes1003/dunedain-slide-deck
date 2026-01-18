@@ -4,6 +4,7 @@ import { useState } from "react";
 import Sidebar from "./components/Sidebar";
 import PromptForm from "./components/PromptForm";
 import SlideViewer from "./components/SlideViewer";
+import SkeletonSlide from "./components/SkeletonSlide";
 import ErrorDisplay from "./components/ErrorDisplay";
 import useKeyboardNavigation from "./hooks/useKeyboardNavigation";
 import useSlideGeneration from "./hooks/useSlideGeneration";
@@ -69,7 +70,9 @@ export default function Home() {
         <main className="flex flex-col flex-1 w-full max-w-4xl mx-auto px-4 pt-4 pb-24 min-h-0 overflow-hidden">
           <div className="flex flex-col gap-6 w-full flex-1 min-h-0 overflow-hidden">
             <div className="flex flex-col flex-1 min-h-0 overflow-y-auto">
-              {slides && currentSlide ? (
+              {isLoading ? (
+                <SkeletonSlide />
+              ) : slides && currentSlide ? (
                 <SlideViewer
                   slides={slides}
                   currentSlideIndex={currentSlideIndex}

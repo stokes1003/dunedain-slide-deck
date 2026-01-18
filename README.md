@@ -27,10 +27,15 @@ page.tsx (Home)
 │   └── History items (grouped by date)
 ├── Main Content Area
 │   ├── Empty State (when no slides)
+│   ├── SkeletonSlide (loading state)
 │   └── SlideViewer (when slides exist)
 │       ├── SlideContent (editable title & content)
 │       └── SlideNavigation (Previous/Next buttons)
 └── PromptForm (fixed at bottom)
+│   ├── Input field
+│   ├── Retry button (regenerate)
+│   ├── Export button (.pptx)
+│   └── Submit button
 ```
 
 ### State Management
@@ -51,12 +56,13 @@ app/
 │       └── route.ts          # Next.js API route (proxies to external API)
 ├── components/
 │   ├── Sidebar.tsx           # Left sidebar with logo, menu, and history
-│   ├── PromptForm.tsx        # Fixed input form at bottom
+│   ├── PromptForm.tsx        # Fixed input form with regenerate/export buttons
 │   ├── SlideViewer.tsx       # Container for slide display
 │   ├── SlideContent.tsx      # Editable slide title and content
 │   ├── SlideNavigation.tsx   # Previous/Next buttons
+│   ├── SkeletonSlide.tsx     # Loading skeleton for slide display
 │   ├── ErrorDisplay.tsx      # Error message display
-│   ├── Logo.tsx              # Reusable logo component
+│   └── Logo.tsx              # Reusable logo component
 ├── hooks/
 │   ├── useSlideDeck.ts       # Slide deck state management
 │   ├── useSlideGeneration.ts # API call logic
@@ -64,6 +70,7 @@ app/
 │   └── useKeyboardNavigation.ts # Keyboard event handling
 ├── lib/
 │   ├── api.ts                # Client-side API client
+│   ├── exportSlides.ts       # PowerPoint export utility
 │   └── types.ts              # TypeScript type definitions
 └── page.tsx                  # Main page component (orchestrator)
 ```
@@ -131,6 +138,30 @@ app/
 - Sidebar fixed width (desktop-first approach)
 - Scrollable content areas prevent overflow issues
 
+### 11. **Loading States**
+
+- Skeleton slide component shown during generation
+- Pulse animation provides visual feedback
+- Maintains layout structure while loading
+
+### 12. **Export Functionality**
+
+- PowerPoint (.pptx) export using pptxgenjs
+- Exports all slides with titles and content
+- Handles both paragraph and bullet content types
+- Filename derived from deck title
+
+## Features
+
+- **AI-Powered Generation**: Generate slide decks from natural language prompts
+- **Inline Editing**: Edit slide titles and content directly in the viewer
+- **Keyboard Navigation**: Use arrow keys to navigate between slides
+- **Regenerate**: Regenerate entire deck with the same prompt (no chat history)
+- **Export to PowerPoint**: Download slides as `.pptx` file
+- **Session History**: View and regenerate from recent prompts
+- **Loading States**: Skeleton UI during slide generation
+- **Error Handling**: User-friendly error messages
+
 ## Technical Stack
 
 - **Framework**: Next.js 16 (App Router)
@@ -138,6 +169,8 @@ app/
 - **Styling**: Tailwind CSS
 - **State Management**: React Hooks (useState, useCallback, useMemo)
 - **API**: Next.js API Routes + fetch
+- **Icons**: lucide-react
+- **Export**: pptxgenjs
 
 ## Environment Variables
 
